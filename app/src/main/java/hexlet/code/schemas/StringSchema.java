@@ -1,9 +1,9 @@
-package hexlet.code.shemas;
+package hexlet.code.schemas;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringSchema {
+public class StringSchema implements BaseSchema {
     private boolean isRequired;
     private int minLength;
     private List<String> containsList = new ArrayList<>();
@@ -21,14 +21,15 @@ public class StringSchema {
         return this;
     }
 
-    public Boolean isValid(final Object obj) {
-        if (obj == null || obj.equals("")) {
+    @Override
+    public Boolean isValid(final Object object) {
+        if (object == null || object.equals("")) {
             return isRequired ? false : true;
         }
-        if (!(obj instanceof String)) {
+        if (!(object instanceof String)) {
             return false;
         }
-        String str = (String) obj;
+        String str = (String) object;
         if (str.length() < minLength) {
             return false;
         }
