@@ -12,6 +12,7 @@ public class StringSchema implements BaseSchema {
         this.isRequired = false;
     }
 
+    @Override
     public void required() {
         this.isRequired = true;
     }
@@ -24,19 +25,11 @@ public class StringSchema implements BaseSchema {
     @Override
     public Boolean isValid(final Object object) {
         if (object == null || object.equals("")) {
-            return isRequired ? false : true;
-        }
-        if (!(object instanceof String)) {
+            return !isRequired;
+        } else if (!(object instanceof String)) {
             return false;
         }
-        String str = (String) object;
-        if (str.length() < minLength) {
-            return false;
-        }
-        if (!containsAllInList(str)) {
-            return false;
-        }
-        return true;
+        return object.toString().length() >= minLength && containsAllInList(object.toString());
 
     }
 

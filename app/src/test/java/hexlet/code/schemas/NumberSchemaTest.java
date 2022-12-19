@@ -12,7 +12,7 @@ class NumberSchemaTest {
     private Validator v = new Validator();
 
     @BeforeEach
-    void reset() {
+    void preset() {
         this.schema = v.number();
     }
 

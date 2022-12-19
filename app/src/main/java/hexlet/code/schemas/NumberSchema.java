@@ -18,6 +18,7 @@ public class NumberSchema implements BaseSchema {
         this.inRange = false;
     }
 
+    @Override
     public void required() {
         this.isRequired = true;
     }
