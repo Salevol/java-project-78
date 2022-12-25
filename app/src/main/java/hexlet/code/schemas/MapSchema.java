@@ -1,10 +1,9 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public final class MapSchema extends BaseSchema {
-    private Map<String, BaseSchema> schema = new HashMap<>();
+public final class MapSchema extends BaseSchema<MapSchema> {
+
 
     public MapSchema() {
         checkList.add(o -> (o instanceof Map) || (o == null));
@@ -16,16 +15,6 @@ public final class MapSchema extends BaseSchema {
     }
 
     public void shape(Map<String, BaseSchema> schemas) {
-        this.schema = schemas;
-    }
-
-    @Override
-    public boolean isValid(final Object object) {
-        if (schema.isEmpty()) {
-            return super.isValid(object);
-        }
-        Map<String, Object> map = (Map) object;
-        return map.entrySet().stream()
-                .allMatch(e -> this.schema.get(e.getKey()).isValid(e.getValue()));
+        super.schema = schemas;
     }
 }

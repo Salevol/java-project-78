@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public final class NumberSchema extends BaseSchema {
+public final class NumberSchema extends BaseSchema<NumberSchema> {
 
     public NumberSchema() {
         checkList.add(o -> (o instanceof Integer) || (o == null));

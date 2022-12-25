@@ -1,17 +1,9 @@
 package hexlet.code.schemas;
 
-import java.util.Objects;
-
-public final class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema<StringSchema> {
 
     public StringSchema() {
         checkList.add(o -> (o instanceof String) || (o == null));
-    }
-
-    @Override
-    public StringSchema required() {
-        checkList.add(str -> !(Objects.isNull(str) || ((String) str).isEmpty()));
-        return this;
     }
 
     public StringSchema contains(String str) {
