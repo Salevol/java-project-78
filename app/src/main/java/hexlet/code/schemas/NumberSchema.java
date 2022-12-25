@@ -1,49 +1,18 @@
 package hexlet.code.schemas;
 
-public class NumberSchema implements BaseSchema {
-    private boolean isRequired;
-    private boolean isPositive;
-    private boolean inRange;
-    private int[] requiredRange = new int[2];
+public class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
-        this.isPositive = false;
-        this.isRequired = false;
-        this.inRange = true;
+        checkList.add(o -> (o instanceof Integer) || (o == null));
     }
 
-    public void range(int start, int end) {
-        this.requiredRange[0] = start;
-        this.requiredRange[1] = end;
-        this.inRange = false;
-    }
-
-    @Override
-    public void required() {
-        this.isRequired = true;
-    }
-
-    private boolean isInRange(Integer number) {
-        if (!inRange) {
-            return requiredRange[0] <= number && number <= requiredRange[1];
-        }
-        return true;
-    }
-
-    public NumberSchema positive() {
-        this.isPositive = true;
+    public NumberSchema range(int start, int end) {
+        checkList.add(o -> (o != null)  && ((Integer) o) >= start && ((Integer) o) <= end);
         return this;
     }
 
-    @Override
-    public Boolean isValid(Object object) {
-        if (object == null && !isRequired && inRange) {
-            return true;
-        }
-        if (!(object instanceof Integer)) {
-            return false;
-        }
-        Integer number = (Integer) object;
-        return (number > 0 && isPositive && isInRange(number)) || (!isPositive && isInRange(number));
+    public NumberSchema positive() {
+        checkList.add((o -> (o == null) || ((Integer) o) > 0));
+        return this;
     }
 }

@@ -1,48 +1,27 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
-public class StringSchema implements BaseSchema {
-    private boolean isRequired;
-    private int minLength;
-    private List<String> containsList = new ArrayList<>();
+public class StringSchema extends BaseSchema {
 
     public StringSchema() {
-        this.isRequired = false;
+        checkList.add(o -> (o instanceof String) || (o == null));
     }
 
     @Override
-    public void required() {
-        this.isRequired = true;
-    }
-
-    public StringSchema contains(String str) {
-        this.containsList.add(str);
+    public StringSchema required() {
+        checkList.add(str -> !(Objects.isNull(str) || ((String) str).isEmpty()));
         return this;
     }
 
-    @Override
-    public Boolean isValid(final Object object) {
-        if (object == null || object.equals("")) {
-            return !isRequired;
-        } else if (!(object instanceof String)) {
-            return false;
-        }
-        return object.toString().length() >= minLength && containsAllInList(object.toString());
-
+    public StringSchema contains(String str) {
+        checkList.add(o -> ((o != null) && ((String) o).contains(str)));
+        return this;
     }
 
-    public void setMinLength(int length) {
-        this.minLength = length;
+    public StringSchema setMinLength(int length) {
+        checkList.add(o -> ((o != null) && ((String) o).length() >= length));
+        return this;
     }
 
-    private Boolean containsAllInList(String str) {
-        for (String s: containsList) {
-            if (!str.contains(s)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }
