@@ -83,7 +83,7 @@ class MapSchemaTest {
         human4.put("age", -5);
         assertFalse(schema.isValid(human4));
 
-        schemas.put("name", v.string().required().setMinLength(5).contains("Al"));
+        schemas.put("name", v.string().required().minLength(5).contains("Al"));
         schemas.put("age", v.number().positive().range(0, 90));
         schema.shape(schemas);
         Map<String, Object> human5 = new HashMap<>();

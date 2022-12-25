@@ -42,7 +42,7 @@ class StringSchemaTest {
     void setMinLength() {
         assertTrue(schema.isValid("what does the fox say"));
         assertTrue(schema.isValid("hexlet"));
-        schema.setMinLength(7);
+        schema.minLength(7);
         assertTrue(schema.isValid("what does the fox say"));
         assertFalse(schema.isValid("hexlet"));
     }

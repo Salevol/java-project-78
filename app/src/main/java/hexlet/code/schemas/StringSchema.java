@@ -19,7 +19,7 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
-    public StringSchema setMinLength(int length) {
+    public StringSchema minLength(int length) {
         checkList.add(o -> ((o != null) && ((String) o).length() >= length));
         return this;
     }
