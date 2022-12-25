@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-abstract class BaseSchema {
+public abstract class BaseSchema {
     List<Predicate<Object>> checkList = new ArrayList<>();
 
     public boolean isValid(final Object object) {
