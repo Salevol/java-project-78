@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.Objects;
 
-public class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema {
 
     public StringSchema() {
         checkList.add(o -> (o instanceof String) || (o == null));
@@ -23,5 +23,4 @@ public class StringSchema extends BaseSchema {
         checkList.add(o -> ((o != null) && ((String) o).length() >= length));
         return this;
     }
-
 }
