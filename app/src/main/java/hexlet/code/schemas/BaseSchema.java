@@ -7,21 +7,19 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public abstract class BaseSchema<T extends BaseSchema<T>> {
+public abstract class BaseSchema {
+    protected boolean notRequired = true;
     protected List<Predicate<Object>> checkList = new ArrayList<>();
     protected Map<String, BaseSchema> schema = new HashMap<>();
 
-    public final boolean isValid(final Object object) {
-        if (schema.isEmpty()) {
-            return checkList.stream().allMatch(pre -> pre.test(object));
-        }
-        Map<String, Object> map = (Map) object;
-        return map.entrySet().stream()
-                   .allMatch(e -> this.schema.get(e.getKey()).isValid(e.getValue()));
+    protected final void addCheck(Predicate check) {
+        checkList.add(check);
     }
 
-    public final T required() {
-        checkList.add(o -> !(Objects.isNull(o) || o.toString().isEmpty()));
-        return (T) this;
+    public final boolean isValid(final Object object) {
+        if (Objects.isNull(object)) {
+            return notRequired;
+        }
+        return checkList.stream().allMatch(pre -> pre.test(object));
     }
 }

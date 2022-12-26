@@ -2,19 +2,25 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public final class MapSchema extends BaseSchema<MapSchema> {
+public final class MapSchema extends BaseSchema {
 
 
     public MapSchema() {
-        checkList.add(o -> (o instanceof Map) || (o == null));
+        addCheck(o -> (o instanceof Map));
     }
 
     public MapSchema sizeof(int minSize) {
-        checkList.add(o -> ((o != null) && ((Map) o).size() >= minSize));
+        addCheck(o -> (((Map) o).size() >= minSize));
+        return this.required();
+    }
+
+    public MapSchema required() {
+        this.notRequired = false;
         return this;
     }
 
     public void shape(Map<String, BaseSchema> schemas) {
-        super.schema = schemas;
+        schemas.entrySet().stream()
+                .forEach(e -> addCheck(o -> e.getValue().isValid(((Map) o).get(e.getKey()))));
     }
 }

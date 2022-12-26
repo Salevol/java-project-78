@@ -1,18 +1,23 @@
 package hexlet.code.schemas;
 
-public final class NumberSchema extends BaseSchema<NumberSchema> {
+public final class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
-        checkList.add(o -> (o instanceof Integer) || (o == null));
+        addCheck(o -> (o instanceof Integer));
     }
 
     public NumberSchema range(int start, int end) {
-        checkList.add(o -> (o != null)  && ((Integer) o) >= start && ((Integer) o) <= end);
-        return this;
+        addCheck(o -> (Integer) o >= start && (Integer) o <= end);
+        return this.required();
     }
 
     public NumberSchema positive() {
-        checkList.add((o -> (o == null) || ((Integer) o) > 0));
+        addCheck((o -> (Integer) o > 0));
+        return this;
+    }
+
+    public NumberSchema required() {
+        this.notRequired = false;
         return this;
     }
 }
