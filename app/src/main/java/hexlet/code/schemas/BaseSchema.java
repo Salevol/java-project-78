@@ -14,9 +14,8 @@ public abstract class BaseSchema {
     }
 
     public final boolean isValid(final Object object) {
-        if (Objects.isNull(object)) {
-            return notRequired;
-        }
-        return checkList.stream().allMatch(pre -> pre.test(object));
+        return Objects.isNull(object)
+                ? notRequired
+                : checkList.stream().allMatch(pre -> pre.test(object));
     }
 }

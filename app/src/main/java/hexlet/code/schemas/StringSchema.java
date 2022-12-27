@@ -3,7 +3,7 @@ package hexlet.code.schemas;
 public final class StringSchema extends BaseSchema {
 
     public StringSchema() {
-        addCheck(o -> (o instanceof String));
+        addCheck(o -> o instanceof String);
     }
 
     public StringSchema contains(String str) {

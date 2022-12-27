@@ -3,7 +3,7 @@ package hexlet.code.schemas;
 public final class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
-        addCheck(o -> (o instanceof Integer));
+        addCheck(o -> o instanceof Integer);
     }
 
     public NumberSchema range(int start, int end) {
@@ -12,7 +12,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema positive() {
-        addCheck((o -> (Integer) o > 0));
+        addCheck(o -> (Integer) o > 0);
         return this;
     }
 
