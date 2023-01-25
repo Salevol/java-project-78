@@ -6,16 +6,16 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema {
-    protected boolean notRequired = true;
-    protected List<Predicate<Object>> checkList = new ArrayList<>();
+    protected boolean optional = true;
+    private final List<Predicate<Object>> checkList = new ArrayList<>();
 
-    protected final void addCheck(Predicate check) {
+    protected final void addCheck(Predicate<Object> check) {
         checkList.add(check);
     }
 
     public final boolean isValid(final Object object) {
         return Objects.isNull(object)
-                ? notRequired
+                ? optional
                 : checkList.stream().allMatch(pre -> pre.test(object));
     }
 }

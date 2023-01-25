@@ -17,7 +17,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema required() {
-        this.notRequired = false;
+        this.optional = false;
         return this;
     }
 }

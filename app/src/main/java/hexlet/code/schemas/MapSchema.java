@@ -15,15 +15,16 @@ public final class MapSchema extends BaseSchema {
     }
 
     public MapSchema required() {
-        this.notRequired = false;
+        this.optional = false;
         return this;
     }
 
-    public void shape(Map<String, BaseSchema> schemas) {
+    public MapSchema shape(Map<String, BaseSchema> schemas) {
         addCheck(value -> schemas.entrySet().stream()
                 .allMatch(e -> {
                     Object v = ((Map) value).get(e.getKey());
                     return e.getValue().isValid(v);
                 }));
+        return this;
     }
 }

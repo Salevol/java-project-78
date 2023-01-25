@@ -18,7 +18,7 @@ public final class StringSchema extends BaseSchema {
 
     public StringSchema required() {
         addCheck(o -> !((String) o).isEmpty());
-        this.notRequired = false;
+        this.optional = false;
         return this;
     }
 }
